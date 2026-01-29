@@ -7,7 +7,7 @@ export declare interface SASFindManyRequest extends Partial<SASOptional>, Pagina
 export declare interface SASFindOneRequest extends Partial<SASOptional> {}
 
 export declare interface SASCreateOneRequest extends Pick<SASRequired, 'userId'> {
-	action?: SASCreateMethodEnum
+	// action?: SASCreateMethodEnum
 }
 
 export declare interface SASUpdateOneRequest extends Pick<SASOptional, 'userId' | 'date' | 'durationMs' | 'endAt' | 'reason' | 'startAt'> {

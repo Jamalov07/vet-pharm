@@ -10,8 +10,8 @@ export class SASFindManyRequestDto
 	implements SASFindManyRequest {}
 
 export class SASCreateOneRequestDto extends IntersectionType(PickType(SASRequiredDto, ['userId'])) implements SASCreateOneRequest {
-	@ApiProperty({ enum: SASCreateMethodEnum })
-	@IsNotEmpty()
-	@IsEnum(SASCreateMethodEnum)
-	action: SASCreateMethodEnum
+	// @ApiProperty({ enum: SASCreateMethodEnum })
+	// @IsNotEmpty()
+	// @IsEnum(SASCreateMethodEnum)
+	// action: SASCreateMethodEnum
 }

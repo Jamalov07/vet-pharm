@@ -41,6 +41,11 @@ export class ClientRequiredDto extends DefaultRequiredFieldsDto implements Clien
 
 	@ApiProperty({ type: String, isArray: true })
 	pages: $Enums.PageEnum[]
+
+	@ApiProperty({ type: String })
+	@IsNotEmpty()
+	@IsString()
+	address: string
 }
 
 export class ClientOptionalDto extends DefaultOptionalFieldsDto implements ClientOptional {
@@ -48,6 +53,11 @@ export class ClientOptionalDto extends DefaultOptionalFieldsDto implements Clien
 	@IsOptional()
 	@IsString()
 	fullname?: string
+
+	@ApiPropertyOptional({ type: String })
+	@IsOptional()
+	@IsString()
+	address?: string
 
 	@ApiPropertyOptional({ type: String })
 	@IsOptional()

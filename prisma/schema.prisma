@@ -64,6 +64,8 @@ enum PageEnum {
   supplierpayment  @map("supplierpayment")
   stuff            @map("stuff")
   stuffpayment     @map("stuffpayment")
+  category         @map("category")
+  activitysession  @map("activitysession")
 }
 
 enum ActivityStopReasonEnum {
@@ -123,6 +125,7 @@ model UserModel {
   id          String   @map("id")           @db.Uuid       @default(dbgenerated("GEN_RANDOM_UUID()"))
   phone       String   @map("phone")        @db.VarChar()    
   fullname    String   @map("fullname")     @db.VarChar()
+  address     String?  @map("address")      @db.VarChar()
   password    String   @map("password")     @db.VarChar()  
   token       String?  @map("token")        @db.VarChar()  
   balance     Decimal  @map("balance")      @db.Decimal(10, 3)  @default(0)

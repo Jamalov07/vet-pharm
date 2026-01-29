@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common'
+import { Body, Controller, Get, Post, Query, Req, UseGuards } from '@nestjs/common'
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger'
-import { AuthOptions, CheckPermissionGuard } from '../../common'
+import { AuthOptions, CheckPermissionGuard, CRequest } from '../../common'
 import { SASService } from './staff-activity-session.service'
 import { SASCreateOneRequestDto, SASFindManyRequestDto, SASFindManyResponseDto, SASModifyResponseDto } from './dtos'
 
@@ -25,9 +25,10 @@ export class SASController {
 	}
 
 	@Post('one')
+	@AuthOptions(true, true)
 	@ApiOperation({ summary: 'create one sas' })
 	@ApiOkResponse({ type: SASModifyResponseDto })
-	create(@Body() body: SASCreateOneRequestDto): Promise<SASModifyResponseDto> {
-		return this.sasService.createOne(body)
+	create(@Req() request: CRequest): Promise<SASModifyResponseDto> {
+		return this.sasService.createOne({ userId: request.user.id })
 	}
 }

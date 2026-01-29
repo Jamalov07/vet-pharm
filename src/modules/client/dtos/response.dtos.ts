@@ -12,6 +12,7 @@ import {
 } from '../interfaces'
 import { GlobalModifyResponseDto, GlobalResponseDto, PaginationResponseDto } from '@common'
 import { ClientRequiredDto } from './fields.dtos'
+import { ClientCategoryFindOneData, ClientCategoryFindOneDataDto } from '../../client-category'
 
 export class ClientDeedDto implements ClientDeed {
 	@ApiProperty({ type: Date })
@@ -44,7 +45,7 @@ export class ClientDeedInfoDto implements ClientDeedInfo {
 	totalDebit: Decimal
 }
 
-export class ClientFindOneDataDto extends PickType(ClientRequiredDto, ['id', 'fullname', 'createdAt', 'phone', 'categoryId']) implements ClientFindOneData {
+export class ClientFindOneDataDto extends PickType(ClientRequiredDto, ['id', 'fullname', 'address', 'createdAt', 'phone']) implements ClientFindOneData {
 	@ApiProperty({ type: Number })
 	debt?: Decimal
 
@@ -53,6 +54,9 @@ export class ClientFindOneDataDto extends PickType(ClientRequiredDto, ['id', 'fu
 
 	@ApiProperty({ type: ClientDeedInfoDto })
 	deedInfo?: ClientDeedInfo
+
+	@ApiProperty({ type: ClientCategoryFindOneDataDto })
+	category?: ClientCategoryFindOneData
 }
 
 export class ClientFindManyDataDto extends PaginationResponseDto implements ClientFindManyData {

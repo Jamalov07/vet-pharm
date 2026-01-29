@@ -35,12 +35,13 @@ export class ClientRepository implements OnModuleInit {
 			select: {
 				id: true,
 				fullname: true,
+				address: true,
 				phone: true,
 				balance: true,
 				actions: true,
 				createdAt: true,
 				telegram: true,
-				categoryId: true,
+				category: { select: { id: true, name: true, createdAt: true, percent: true } },
 				payments: {
 					where: { type: ServiceTypeEnum.client, deletedAt: null },
 					select: { card: true, cash: true, other: true, transfer: true, total: true },
@@ -75,13 +76,14 @@ export class ClientRepository implements OnModuleInit {
 			select: {
 				id: true,
 				fullname: true,
+				address: true,
 				balance: true,
 				phone: true,
 				actions: true,
 				updatedAt: true,
 				createdAt: true,
 				deletedAt: true,
-				categoryId: true,
+				category: { select: { id: true, name: true, createdAt: true, percent: true } },
 				payments: {
 					where: { type: ServiceTypeEnum.client, deletedAt: null },
 					select: { card: true, total: true, cash: true, other: true, transfer: true, createdAt: true, description: true },
@@ -146,7 +148,16 @@ export class ClientRepository implements OnModuleInit {
 	async getOne(query: ClientGetOneRequest) {
 		const client = await this.prisma.userModel.findFirst({
 			where: { id: query.id, fullname: query.fullname, phone: query.phone },
-			select: { id: true, fullname: true, phone: true, createdAt: true, deletedAt: true, password: true, token: true },
+			select: {
+				id: true,
+				fullname: true,
+				phone: true,
+				address: true,
+				createdAt: true,
+				deletedAt: true,
+				password: true,
+				token: true,
+			},
 		})
 
 		return client
@@ -179,8 +190,9 @@ export class ClientRepository implements OnModuleInit {
 				id: true,
 				fullname: true,
 				phone: true,
+				address: true,
 				createdAt: true,
-				categoryId: true,
+				category: { select: { id: true, name: true, createdAt: true, percent: true } },
 			},
 		})
 		return client

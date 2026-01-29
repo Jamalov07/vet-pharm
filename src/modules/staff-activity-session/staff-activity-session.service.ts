@@ -134,36 +134,19 @@ export class SASService {
 	async createOne(body: SASCreateOneRequest) {
 		const now = new Date()
 
-		const openSession = await this.sasRepository.findOne({
-			userId: body.userId,
-			endAt: null as any,
-		})
+		const lastSession = await this.sasRepository.findOne({ userId: body.userId })
 
-		/* ---------- START ---------- */
-		if (body.action === SASCreateMethodEnum.start) {
-			if (openSession) {
-				throw new BadRequestException('Session already started')
-			}
-
-			const sas = await this.sasRepository.createOne({ userId: body.userId })
+		if (!lastSession || lastSession.endAt) {
+			await this.sasRepository.createOne({ userId: body.userId })
 
 			return createResponse({ data: null, success: { messages: ['open sas success'] } })
 		}
 
-		/* ---------- STOP ---------- */
-		if (body.action === SASCreateMethodEnum.stop) {
-			if (!openSession) {
-				throw new BadRequestException('No active session to stop')
-			}
+		const durationMs = now.getTime() - lastSession.startAt.getTime()
 
-			const durationMs = now.getTime() - openSession.startAt.getTime()
+		await this.sasRepository.updateOne({ id: lastSession.id }, { endAt: now, durationMs: BigInt(durationMs), reason: ActivityStopReasonEnum.manual })
 
-			const sas = await this.sasRepository.updateOne({ id: openSession.id }, { endAt: now, durationMs: BigInt(durationMs), reason: ActivityStopReasonEnum.manual })
-
-			return createResponse({ data: null, success: { messages: ['close sas success'] } })
-		}
-
-		throw new BadRequestException('Unknown action')
+		return createResponse({ data: null, success: { messages: ['close sas success'] } })
 	}
 
 	async getStaffWorkReport(query: SASFindManyRequest) {
