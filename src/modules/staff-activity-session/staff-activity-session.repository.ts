@@ -97,15 +97,15 @@ export class SASRepository {
 
 		if (startDate) {
 			start = new Date(startDate)
-			start.setHours(0, 0, 0, 0)
+			start.setHours(5, 0, 0, 0)
 		} else {
 			start = new Date()
-			start.setHours(0, 0, 0, 0)
+			start.setHours(5, 0, 0, 0)
 		}
 
 		if (endDate) {
 			end = new Date(endDate)
-			end.setHours(0, 0, 0, 0)
+			end.setHours(5, 0, 0, 0)
 			end.setDate(end.getDate() + 1)
 		} else {
 			end = new Date(start)
