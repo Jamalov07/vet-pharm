@@ -167,7 +167,7 @@ export class SASService {
 
 		let grandTotalMs = 0
 
-		console.log(sessions.length)
+		console.log(sessions)
 
 		for (const s of sessions) {
 			const userId = s.user.id
