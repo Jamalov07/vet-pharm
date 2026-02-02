@@ -247,7 +247,7 @@ export class ClientRepository implements OnModuleInit {
 			where: {
 				type: { in: ['client', 'selling'] },
 				deletedAt: null,
-				total: { not: null, gt: 0 },
+				total: { gt: 0 },
 				...(query.startDate && { createdAt: { gte: query.startDate } }),
 				...(query.endDate && { createdAt: { lte: query.endDate } }),
 			},
