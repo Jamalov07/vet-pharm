@@ -21,7 +21,7 @@ export class SASController {
 	@Get('report')
 	@ApiOperation({ summary: 'staff work report' })
 	getReport(@Query() query: SASFindManyRequestDto) {
-		return this.sasService.getStaffWorkReport2(query)
+		return this.sasService.getStaffWorkReport(query)
 	}
 
 	@Post('one')
