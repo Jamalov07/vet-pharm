@@ -169,7 +169,7 @@ export class SASService {
 
 		console.log(sessions)
 
-		for (const s of sessions) {
+		for (const s of sessions.sessions) {
 			const userId = s.user.id
 			const dayKey = s.date.toISOString().slice(0, 10)
 
@@ -185,6 +185,64 @@ export class SASService {
 			const row = workMap.get(userId)
 
 			// ish oynasi
+			const workStart = new Date(s.date)
+			workStart.setHours(3, 0, 0, 0)
+
+			const workEnd = new Date(s.date)
+			workEnd.setHours(13, 0, 0, 0)
+
+			const start = s.startAt
+			const end = s.endAt ?? new Date()
+
+			const effectiveStart = Math.max(start.getTime(), workStart.getTime())
+			const effectiveEnd = Math.min(end.getTime(), workEnd.getTime())
+
+			if (effectiveEnd > effectiveStart) {
+				const ms = effectiveEnd - effectiveStart
+				row.byDay[dayKey] += ms
+				row.totalMs += ms
+				grandTotalMs += ms
+			}
+		}
+
+		return createResponse({
+			data: { days: dayKeys, rows: Array.from(workMap.values()), grandTotalMs },
+			success: { messages: ['get report success'] },
+		})
+	}
+
+	async getStaffWorkReport2(query: SASFindManyRequest) {
+		const { staffs, sessions } = await this.sasRepository.findForReport(query.startDate, query.endDate)
+
+		const dayKeys = getDateKeys(query.startDate, query.endDate)
+
+		const workMap = new Map<
+			string,
+			{
+				userId: string
+				fullname: string
+				byDay: Record<string, number>
+				totalMs: number
+			}
+		>()
+
+		for (const staff of staffs) {
+			workMap.set(staff.id, {
+				userId: staff.id,
+				fullname: staff.fullname,
+				byDay: Object.fromEntries(dayKeys.map((d) => [d, 0])),
+				totalMs: 0,
+			})
+		}
+
+		let grandTotalMs = 0
+
+		for (const s of sessions) {
+			const row = workMap.get(s.user.id)
+			if (!row) continue
+
+			const dayKey = s.date.toISOString().slice(0, 10)
+
 			const workStart = new Date(s.date)
 			workStart.setHours(3, 0, 0, 0)
 

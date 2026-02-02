@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../shared/prisma'
 import { SASCreateOneRequest, SASFindManyRequest, SASFindOneRequest, SASUpdateOneRequest } from './interfaces'
+import { UserTypeEnum } from '@prisma/client'
 
 @Injectable()
 export class SASRepository {
@@ -114,7 +115,7 @@ export class SASRepository {
 
 		where.date = { gte: start, lt: end }
 
-		return this.prisma.staffActivitySessionModel.findMany({
+		const sessions = await this.prisma.staffActivitySessionModel.findMany({
 			where,
 			include: {
 				user: {
@@ -125,5 +126,9 @@ export class SASRepository {
 				},
 			},
 		})
+
+		const staffs = await this.prisma.userModel.findMany({ where: { type: UserTypeEnum.staff, deletedAt: null } })
+
+		return { sessions: sessions, staffs: staffs }
 	}
 }
