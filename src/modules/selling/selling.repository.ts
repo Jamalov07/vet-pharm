@@ -46,7 +46,9 @@ export class SellingRepository implements OnModuleInit {
 				createdAt: true,
 				deletedAt: true,
 				date: true,
-				client: { select: { address: true, fullname: true, phone: true, id: true, createdAt: true } },
+				client: {
+					select: { address: true, fullname: true, phone: true, id: true, createdAt: true, category: { select: { id: true, name: true, percent: true, createdAt: true } } },
+				},
 				staff: { select: { fullname: true, phone: true, id: true, createdAt: true } },
 				payment: {
 					select: {
@@ -83,7 +85,9 @@ export class SellingRepository implements OnModuleInit {
 				createdAt: true,
 				deletedAt: true,
 				date: true,
-				client: { select: { address: true, fullname: true, phone: true, id: true, createdAt: true } },
+				client: {
+					select: { address: true, fullname: true, phone: true, id: true, createdAt: true, category: { select: { id: true, name: true, percent: true, createdAt: true } } },
+				},
 				staff: { select: { fullname: true, phone: true, id: true, createdAt: true } },
 				payment: { select: { total: true, type: true, id: true, card: true, cash: true, other: true, transfer: true, description: true, createdAt: true } },
 				products: {

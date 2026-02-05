@@ -15,7 +15,7 @@ import { ProductMVOptionalDto, ProductMVRequiredDto } from './fields.dtos'
 
 export class ProductMVFindManyRequestDto
 	extends IntersectionType(
-		PickType(ProductMVOptionalDto, ['type', 'productId']),
+		PickType(ProductMVOptionalDto, ['type', 'productId', 'staffId']),
 		PaginationRequestDto,
 		PickType(RequestOtherFieldsDto, ['isDeleted', 'search', 'startDate', 'endDate']),
 	)
