@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { SASRepository } from './staff-activity-session.repository'
 import { SASCreateOneRequest, SASFindManyRequest } from './interfaces'
 import { formatDuration, getDateKeys } from './helpers'
-import { createResponse } from '../../common'
+import { createResponse, WORK_END_HOUR, WORK_START_HOUR } from '../../common'
 import { ActivityStopReasonEnum } from '@prisma/client'
 
 @Injectable()
@@ -21,10 +21,10 @@ export class SASService {
 
 			// 1️⃣ Shu session kuni uchun ish oynasi
 			const workStart = new Date(item.date)
-			workStart.setHours(3, 0, 0, 0)
+			workStart.setHours(WORK_START_HOUR, 0, 0, 0)
 
 			const workEnd = new Date(item.date)
-			workEnd.setHours(13, 0, 0, 0)
+			workEnd.setHours(WORK_END_HOUR, 0, 0, 0)
 
 			let durationMs = 0
 
@@ -93,10 +93,10 @@ export class SASService {
 
 		// Ish oynasi
 		const workStart = new Date(today)
-		workStart.setHours(3, 0, 0, 0)
+		workStart.setHours(WORK_START_HOUR, 0, 0, 0)
 
 		const workEnd = new Date(today)
-		workEnd.setHours(13, 0, 0, 0)
+		workEnd.setHours(WORK_END_HOUR, 0, 0, 0)
 
 		let totalMs = 0
 		let isActive = false
@@ -197,10 +197,10 @@ export class SASService {
 			const dayKey = s.date.toISOString().slice(0, 10)
 
 			const workStart = new Date(s.date)
-			workStart.setHours(3, 0, 0, 0)
+			workStart.setHours(WORK_START_HOUR, 0, 0, 0)
 
 			const workEnd = new Date(s.date)
-			workEnd.setHours(13, 0, 0, 0)
+			workEnd.setHours(WORK_END_HOUR, 0, 0, 0)
 
 			const sessionStart = s.startAt
 			const sessionEnd = s.endAt ?? new Date()

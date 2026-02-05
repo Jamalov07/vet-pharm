@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { Cron, CronExpression } from '@nestjs/schedule'
 import { PrismaService } from '../prisma'
+import { WORK_END_HOUR } from '../../../common'
 
 @Injectable()
 export class CronService {
@@ -8,7 +9,7 @@ export class CronService {
 
 	constructor(private readonly prisma: PrismaService) {}
 
-	@Cron('0 0 13 * * *')
+	@Cron(`0 0 ${WORK_END_HOUR} * * *`)
 	async autoStopSessions() {
 		const now = new Date()
 
