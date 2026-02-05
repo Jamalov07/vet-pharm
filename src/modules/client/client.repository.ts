@@ -306,6 +306,7 @@ export class ClientRepository implements OnModuleInit {
 				phone: body.phone,
 				type: UserTypeEnum.client,
 				categoryId: body.categoryId,
+				address: body.address,
 			},
 			select: {
 				id: true,
@@ -328,6 +329,7 @@ export class ClientRepository implements OnModuleInit {
 				balance: body.balance,
 				deletedAt: body.deletedAt,
 				categoryId: body.categoryId,
+				address: body.address,
 			},
 		})
 
