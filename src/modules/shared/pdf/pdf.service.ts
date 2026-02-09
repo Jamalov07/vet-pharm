@@ -28,11 +28,11 @@ export class PdfService {
 							],
 							margin: [0, 20, 0, 0], // **shu bilan balandlikni logo darajasiga tushiramiz**
 						},
-						{
-							image: 'logo',
-							width: 120,
-							alignment: 'right',
-						},
+						// {
+						// 	image: 'logo',
+						// 	width: 120,
+						// 	alignment: 'right',
+						// },
 					],
 					margin: [0, 0, 0, 10],
 				},
@@ -97,9 +97,9 @@ export class PdfService {
 					margin: [0, 5, 0, 0],
 				},
 			],
-			images: {
-				logo: logoBase64,
-			},
+			// images: {
+			// 	logo: logoBase64,
+			// },
 			defaultStyle: {
 				font: 'Roboto',
 			},
@@ -126,11 +126,11 @@ export class PdfService {
 							],
 							margin: [0, 20, 0, 0],
 						},
-						{
-							image: 'logo',
-							width: 120,
-							alignment: 'right',
-						},
+						// {
+						// 	image: 'logo',
+						// 	width: 120,
+						// 	alignment: 'right',
+						// },
 					],
 					margin: [0, 0, 0, 10],
 				},
@@ -204,9 +204,9 @@ export class PdfService {
 					margin: [0, 5, 0, 0],
 				},
 			],
-			images: {
-				logo: logoBase64,
-			},
+			// images: {
+			// 	logo: logoBase64,
+			// },
 			defaultStyle: {
 				font: 'Roboto',
 			},
