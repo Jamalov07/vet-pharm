@@ -3,7 +3,7 @@ import { ClientCategoryFindManyData, ClientCategoryFindManyResponse, ClientCateg
 import { GlobalModifyResponseDto, GlobalResponseDto, PaginationResponseDto } from '@common'
 import { ClientCategoryRequiredDto } from './fields.dtos'
 
-export class ClientCategoryFindOneDataDto extends PickType(ClientCategoryRequiredDto, ['id', 'name', 'percent', 'createdAt']) implements ClientCategoryFindOneData {}
+export class ClientCategoryFindOneDataDto extends PickType(ClientCategoryRequiredDto, ['id', 'name', 'percent', 'minPercent', 'createdAt']) implements ClientCategoryFindOneData {}
 
 export class ClientCategoryFindManyDataDto extends PaginationResponseDto implements ClientCategoryFindManyData {
 	@ApiProperty({ type: ClientCategoryFindOneDataDto, isArray: true })

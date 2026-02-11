@@ -13,6 +13,11 @@ export class ClientCategoryRequiredDto extends DefaultRequiredFieldsDto implemen
 	@IsNotEmpty()
 	@IsNumber()
 	percent: number
+
+	@ApiProperty({ type: Number })
+	@IsNotEmpty()
+	@IsNumber()
+	minPercent: number
 }
 
 export class ClientCategoryOptionalDto extends DefaultOptionalFieldsDto implements ClientCategoryOptional {
@@ -25,4 +30,9 @@ export class ClientCategoryOptionalDto extends DefaultOptionalFieldsDto implemen
 	@IsOptional()
 	@IsNumber()
 	percent?: number
+
+	@ApiPropertyOptional({ type: Number })
+	@IsOptional()
+	@IsNumber()
+	minPercent?: number
 }

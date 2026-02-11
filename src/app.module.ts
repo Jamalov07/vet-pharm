@@ -24,6 +24,7 @@ import {
 	UploadModule,
 	ClientCategoryModule,
 	SASModule,
+	ExpenseModule,
 } from '@module'
 import { appConfig, botConfig, databaseConfig, jwtConfig } from '@config'
 import { AuthGuard, CheckPermissionGuard } from '@common'
@@ -57,6 +58,7 @@ import { AuthGuard, CheckPermissionGuard } from '@common'
 		UploadModule,
 		ClientCategoryModule,
 		SASModule,
+		ExpenseModule,
 	],
 	controllers: [],
 	providers: [AuthGuard, CheckPermissionGuard],

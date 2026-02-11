@@ -174,6 +174,18 @@ export const ERROR_MSG = {
 			UZ: 'nom allaqachon mavjud',
 		},
 	},
+	EXPENSE: {
+		NOT_FOUND: {
+			EN: 'user category not found',
+			RU: 'user category not found',
+			UZ: 'foydalanuvchi toifasi topilmadi',
+		},
+		NAME_EXISTS: {
+			EN: 'name already exists',
+			RU: 'name already exists',
+			UZ: 'nom allaqachon mavjud',
+		},
+	},
 	PRODUCT: {
 		NOT_FOUND: {
 			EN: 'product not found',

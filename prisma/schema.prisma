@@ -118,6 +118,7 @@ model ClientCategoryModel {
   id         String     @map("id")          @db.Uuid         @default(dbgenerated("GEN_RANDOM_UUID()"))
   name       String     @map("name")        @db.VarChar()  
   percent    Int        @map("percent")     @db.Integer      @default(100)
+  minPercent Int        @map("min_percent") @db.Integer      @default(100)
   createdAt  DateTime   @map("created_at")  @db.Timestamptz  @default(dbgenerated("NOW()"))
   updatedAt  DateTime   @map("updated_at")  @db.Timestamptz  @updatedAt
   deletedAt  DateTime?  @map("deleted_at")  @db.Timestamptz
@@ -126,6 +127,18 @@ model ClientCategoryModel {
 
   @@id([ id ])
   @@map("client_category")
+}
+
+model ExpenseModel {
+  id           String     @map("id")          @db.Uuid         @default(dbgenerated("GEN_RANDOM_UUID()"))
+  price        Int        @map("price")       @db.Integer      @default(100)
+  description  String     @map("description") @db.VarChar()    @default("")
+  createdAt    DateTime   @map("created_at")  @db.Timestamptz  @default(dbgenerated("NOW()"))
+  updatedAt    DateTime   @map("updated_at")  @db.Timestamptz  @updatedAt
+  deletedAt    DateTime?  @map("deleted_at")  @db.Timestamptz
+
+  @@id([ id ])
+  @@map("expense")
 }
 
 model UserModel {

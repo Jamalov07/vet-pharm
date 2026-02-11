@@ -13,66 +13,66 @@ import {
 
 @Injectable()
 export class ClientCategoryService {
-	constructor(private readonly ClientCategoryRepository: ClientCategoryRepository) {}
+	constructor(private readonly clientCategoryRepository: ClientCategoryRepository) {}
 
 	async findMany(query: ClientCategoryFindManyRequest) {
-		const ClientCategorys = await this.ClientCategoryRepository.findMany(query)
-		const ClientCategorysCount = await this.ClientCategoryRepository.countFindMany(query)
+		const clientCategorys = await this.clientCategoryRepository.findMany(query)
+		const clientCategorysCount = await this.clientCategoryRepository.countFindMany(query)
 
 		const result = query.pagination
 			? {
-					totalCount: ClientCategorysCount,
-					pagesCount: Math.ceil(ClientCategorysCount / query.pageSize),
-					pageSize: ClientCategorys.length,
-					data: ClientCategorys,
+					totalCount: clientCategorysCount,
+					pagesCount: Math.ceil(clientCategorysCount / query.pageSize),
+					pageSize: clientCategorys.length,
+					data: clientCategorys,
 				}
-			: { data: ClientCategorys }
+			: { data: clientCategorys }
 
 		return createResponse({ data: result, success: { messages: ['find many success'] } })
 	}
 
 	async findOne(query: ClientCategoryFindOneRequest) {
-		const ClientCategory = await this.ClientCategoryRepository.findOne(query)
+		const clientCategory = await this.clientCategoryRepository.findOne(query)
 
-		if (!ClientCategory) {
+		if (!clientCategory) {
 			throw new BadRequestException(ERROR_MSG.USER_CATEGORY.NOT_FOUND.UZ)
 		}
 
-		return createResponse({ data: ClientCategory, success: { messages: ['find one success'] } })
+		return createResponse({ data: clientCategory, success: { messages: ['find one success'] } })
 	}
 
 	async getMany(query: ClientCategoryGetManyRequest) {
-		const ClientCategorys = await this.ClientCategoryRepository.getMany(query)
-		const ClientCategorysCount = await this.ClientCategoryRepository.countGetMany(query)
+		const clientCategorys = await this.clientCategoryRepository.getMany(query)
+		const clientCategorysCount = await this.clientCategoryRepository.countGetMany(query)
 
 		const result = query.pagination
 			? {
-					pagesCount: Math.ceil(ClientCategorysCount / query.pageSize),
-					pageSize: ClientCategorys.length,
-					data: ClientCategorys,
+					pagesCount: Math.ceil(clientCategorysCount / query.pageSize),
+					pageSize: clientCategorys.length,
+					data: clientCategorys,
 				}
-			: { data: ClientCategorys }
+			: { data: clientCategorys }
 
 		return createResponse({ data: result, success: { messages: ['get many success'] } })
 	}
 
 	async getOne(query: ClientCategoryGetOneRequest) {
-		const ClientCategory = await this.ClientCategoryRepository.getOne(query)
+		const clientCategory = await this.clientCategoryRepository.getOne(query)
 
-		if (!ClientCategory) {
+		if (!clientCategory) {
 			throw new BadRequestException(ERROR_MSG.USER_CATEGORY.NOT_FOUND.UZ)
 		}
 
-		return createResponse({ data: ClientCategory, success: { messages: ['get one success'] } })
+		return createResponse({ data: clientCategory, success: { messages: ['get one success'] } })
 	}
 
 	async createOne(body: ClientCategoryCreateOneRequest) {
-		const candidate = await this.ClientCategoryRepository.getOne({ name: body.name })
+		const candidate = await this.clientCategoryRepository.getOne({ name: body.name })
 		if (candidate) {
 			throw new BadRequestException(ERROR_MSG.USER_CATEGORY.NAME_EXISTS.UZ)
 		}
 
-		await this.ClientCategoryRepository.createOne({ ...body })
+		await this.clientCategoryRepository.createOne({ ...body })
 
 		return createResponse({ data: null, success: { messages: ['create one success'] } })
 	}
@@ -80,12 +80,12 @@ export class ClientCategoryService {
 	async updateOne(query: ClientCategoryGetOneRequest, body: ClientCategoryUpdateOneRequest) {
 		await this.getOne(query)
 
-		const candidate = await this.ClientCategoryRepository.getOne({ name: body.name })
+		const candidate = await this.clientCategoryRepository.getOne({ name: body.name })
 		if (candidate && candidate.id !== query.id) {
 			throw new BadRequestException(ERROR_MSG.USER_CATEGORY.NAME_EXISTS.UZ)
 		}
 
-		await this.ClientCategoryRepository.updateOne(query, { ...body })
+		await this.clientCategoryRepository.updateOne(query, { ...body })
 
 		return createResponse({ data: null, success: { messages: ['update one success'] } })
 	}
@@ -93,9 +93,9 @@ export class ClientCategoryService {
 	async deleteOne(query: ClientCategoryDeleteOneRequest) {
 		await this.getOne(query)
 		if (query.method === DeleteMethodEnum.hard) {
-			await this.ClientCategoryRepository.deleteOne(query)
+			await this.clientCategoryRepository.deleteOne(query)
 		} else {
-			await this.ClientCategoryRepository.updateOne(query, { deletedAt: new Date() })
+			await this.clientCategoryRepository.updateOne(query, { deletedAt: new Date() })
 		}
 		return createResponse({ data: null, success: { messages: ['delete one success'] } })
 	}

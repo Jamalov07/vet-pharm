@@ -28,7 +28,7 @@ export class ClientCategoryRepository {
 			where: {
 				name: { contains: query.name, mode: 'insensitive' },
 			},
-			select: { id: true, name: true, percent: true, createdAt: true },
+			select: { id: true, name: true, percent: true, minPercent: true, createdAt: true },
 			...paginationOptions,
 		})
 
@@ -38,7 +38,7 @@ export class ClientCategoryRepository {
 	async findOne(query: ClientCategoryFindOneRequest) {
 		const clientCategory = await this.prisma.clientCategoryModel.findFirst({
 			where: { id: query.id },
-			select: { id: true, name: true, percent: true, createdAt: true },
+			select: { id: true, name: true, percent: true, minPercent: true, createdAt: true },
 		})
 
 		return clientCategory
@@ -86,7 +86,7 @@ export class ClientCategoryRepository {
 
 	async createOne(body: ClientCategoryCreateOneRequest) {
 		const clientCategory = await this.prisma.clientCategoryModel.create({
-			data: { name: body.name, percent: body.percent },
+			data: { name: body.name, percent: body.percent, minPercent: body.minPercent },
 		})
 		return clientCategory
 	}
@@ -94,7 +94,7 @@ export class ClientCategoryRepository {
 	async updateOne(query: ClientCategoryGetOneRequest, body: ClientCategoryUpdateOneRequest) {
 		const clientCategory = await this.prisma.clientCategoryModel.update({
 			where: { id: query.id },
-			data: { name: body.name, percent: body.percent },
+			data: { name: body.name, percent: body.percent, minPercent: body.minPercent },
 		})
 
 		return clientCategory

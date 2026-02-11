@@ -15,8 +15,12 @@ export class ClientCategoryFindManyRequestDto
 
 export class ClientCategoryFindOneRequestDto extends IntersectionType(PickType(ClientCategoryRequiredDto, ['id'])) implements ClientCategoryFindOneRequest {}
 
-export class ClientCategoryCreateOneRequestDto extends IntersectionType(PickType(ClientCategoryRequiredDto, ['name', 'percent'])) implements ClientCategoryCreateOneRequest {}
+export class ClientCategoryCreateOneRequestDto
+	extends IntersectionType(PickType(ClientCategoryRequiredDto, ['name', 'percent', 'minPercent']))
+	implements ClientCategoryCreateOneRequest {}
 
-export class ClientCategoryUpdateOneRequestDto extends IntersectionType(PickType(ClientCategoryOptionalDto, ['name', 'percent'])) implements ClientCategoryUpdateOneRequest {}
+export class ClientCategoryUpdateOneRequestDto
+	extends IntersectionType(PickType(ClientCategoryOptionalDto, ['name', 'percent', 'minPercent']))
+	implements ClientCategoryUpdateOneRequest {}
 
 export class ClientCategoryDeleteOneRequestDto extends IntersectionType(PickType(ClientCategoryRequiredDto, ['id'])) implements ClientCategoryDeleteOneRequest {}

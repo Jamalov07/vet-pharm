@@ -9,8 +9,8 @@ export declare interface ClientCategoryGetManyRequest extends ClientCategoryOpti
 
 export declare interface ClientCategoryGetOneRequest extends ClientCategoryOptional {}
 
-export declare interface ClientCategoryCreateOneRequest extends Pick<ClientCategoryRequired, 'name' | 'percent'> {}
+export declare interface ClientCategoryCreateOneRequest extends Pick<ClientCategoryRequired, 'name' | 'percent' | 'minPercent'> {}
 
-export declare interface ClientCategoryUpdateOneRequest extends Pick<ClientCategoryOptional, 'name' | 'percent' | 'deletedAt'> {}
+export declare interface ClientCategoryUpdateOneRequest extends Pick<ClientCategoryOptional, 'name' | 'percent' | 'minPercent' | 'deletedAt'> {}
 
 export declare interface ClientCategoryDeleteOneRequest extends Pick<ClientCategoryOptional, 'id'>, Pick<RequestOtherFields, 'method'> {}
