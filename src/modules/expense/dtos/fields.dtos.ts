@@ -1,7 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import { DefaultOptionalFieldsDto, DefaultRequiredFieldsDto } from '../../../common'
 import { ExpenseOptional, ExpenseRequired } from '../interfaces'
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator'
+import { IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID } from 'class-validator'
 
 export class ExpenseRequiredDto extends DefaultRequiredFieldsDto implements ExpenseRequired {
 	@ApiProperty({ type: String })
@@ -13,6 +13,11 @@ export class ExpenseRequiredDto extends DefaultRequiredFieldsDto implements Expe
 	@IsNotEmpty()
 	@IsNumber()
 	price: number
+
+	@ApiProperty({ type: String })
+	@IsNotEmpty()
+	@IsUUID('4')
+	staffId: string
 }
 
 export class ExpenseOptionalDto extends DefaultOptionalFieldsDto implements ExpenseOptional {
@@ -25,4 +30,9 @@ export class ExpenseOptionalDto extends DefaultOptionalFieldsDto implements Expe
 	@IsOptional()
 	@IsNumber()
 	price?: number
+
+	@ApiPropertyOptional({ type: String })
+	@IsOptional()
+	@IsUUID('4')
+	staffId?: string
 }

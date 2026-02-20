@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, Patch, Post, Query, UseGuards } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Patch, Post, Query, Req, UseGuards } from '@nestjs/common'
 import { ApiBearerAuth, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger'
 import { ExpenseService } from './expense.service'
-import { AuthOptions, CheckPermissionGuard } from '@common'
+import { AuthOptions, CheckPermissionGuard, CRequest } from '@common'
 import {
 	ExpenseFindManyRequestDto,
 	ExpenseCreateOneRequestDto,
@@ -35,13 +35,15 @@ export class ExpenseController {
 	}
 
 	@Post('one')
+	@AuthOptions(true, true)
 	@ApiOperation({ summary: 'add one expense' })
 	@ApiOkResponse({ type: ExpenseModifyResponseDto })
-	async createOne(@Body() body: ExpenseCreateOneRequestDto): Promise<ExpenseModifyResponseDto> {
+	async createOne(@Req() request: CRequest, @Body() body: ExpenseCreateOneRequestDto): Promise<ExpenseModifyResponseDto> {
 		return this.expenseService.createOne(body)
 	}
 
 	@Patch('one')
+	@AuthOptions(true, true)
 	@ApiOperation({ summary: 'update one expense' })
 	@ApiOkResponse({ type: ExpenseModifyResponseDto })
 	async updateOne(@Query() query: ExpenseFindOneRequestDto, @Body() body: ExpenseUpdateOneRequestDto): Promise<ExpenseModifyResponseDto> {
