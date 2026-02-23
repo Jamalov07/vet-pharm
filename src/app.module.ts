@@ -22,7 +22,6 @@ import {
 	PdfModule,
 	CommonModule,
 	UploadModule,
-	ClientCategoryModule,
 	SASModule,
 	ExpenseModule,
 } from '@module'
@@ -56,7 +55,6 @@ import { AuthGuard, CheckPermissionGuard } from '@common'
 		BotModule,
 		CommonModule,
 		UploadModule,
-		ClientCategoryModule,
 		SASModule,
 		ExpenseModule,
 	],

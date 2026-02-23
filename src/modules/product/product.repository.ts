@@ -52,6 +52,7 @@ export class ProductRepository {
 				name: true,
 				unit: true,
 				minAmount: true,
+				prices: true,
 				productMVs: {
 					where: { type: ServiceTypeEnum.selling },
 					orderBy: { selling: { date: 'desc' } },
@@ -77,6 +78,7 @@ export class ProductRepository {
 				createdAt: true,
 				name: true,
 				minAmount: true,
+				prices: true,
 				productMVs: {
 					where: { type: ServiceTypeEnum.selling },
 					orderBy: { selling: { date: 'desc' } },
@@ -150,8 +152,15 @@ export class ProductRepository {
 				cost: body.cost,
 				count: body.count,
 				minAmount: body.minAmount,
-				price: body.price,
 				unit: body.unit,
+				price: body.prices.client,
+				prices: {
+					create: {
+						client: body.prices.client,
+						doctor: body.prices.doctor,
+						farmer: body.prices.farmer,
+					},
+				},
 			},
 		})
 		return product
@@ -165,8 +174,15 @@ export class ProductRepository {
 				cost: body.cost,
 				count: body.count,
 				minAmount: body.minAmount,
-				price: body.price,
 				unit: body.unit,
+				price: body.prices.client,
+				prices: {
+					update: {
+						client: body.prices.client,
+						doctor: body.prices.doctor,
+						farmer: body.prices.farmer,
+					},
+				},
 			},
 		})
 

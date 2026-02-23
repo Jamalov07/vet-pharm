@@ -1,6 +1,0 @@
-export * from './client-category.controller'
-export * from './client-category.module'
-export * from './client-category.repository'
-export * from './client-category.service'
-export * from './dtos'
-export * from './interfaces'

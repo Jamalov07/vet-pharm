@@ -25,11 +25,11 @@ export class ClientFindOneRequestDto extends IntersectionType(PickType(ClientReq
 }
 
 export class ClientCreateOneRequestDto
-	extends IntersectionType(PickType(ClientRequiredDto, ['fullname', 'phone', 'categoryId']), PickType(ClientOptionalDto, ['address']))
+	extends IntersectionType(PickType(ClientRequiredDto, ['fullname', 'phone', 'category']), PickType(ClientOptionalDto, ['address']))
 	implements ClientCreateOneRequest {}
 
 export class ClientUpdateOneRequestDto
-	extends IntersectionType(PickType(ClientOptionalDto, ['deletedAt', 'fullname', 'address', 'phone', 'categoryId']))
+	extends IntersectionType(PickType(ClientOptionalDto, ['deletedAt', 'fullname', 'address', 'phone', 'category']))
 	implements ClientUpdateOneRequest {}
 
 export class ClientDeleteOneRequestDto

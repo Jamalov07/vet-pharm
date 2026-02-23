@@ -1,7 +1,6 @@
 import { GlobalResponse, PaginationResponse } from '@common'
 import { ClientRequired } from './fields.interfaces'
 import { Decimal } from '@prisma/client/runtime/library'
-import { ClientCategoryFindOneData } from '../../client-category'
 
 export declare interface ClientDeed {
 	type: 'debit' | 'credit'
@@ -20,12 +19,11 @@ export declare interface ClientDeedInfo {
 
 export declare interface ClientFindManyData extends PaginationResponse<ClientFindOneData> {}
 
-export declare interface ClientFindOneData extends Pick<ClientRequired, 'id' | 'fullname' | 'address' | 'createdAt' | 'phone'> {
+export declare interface ClientFindOneData extends Pick<ClientRequired, 'id' | 'fullname' | 'address' | 'createdAt' | 'phone' | 'category'> {
 	debt?: Decimal
 	lastArrivalDate?: Date
 	deedInfo?: ClientDeedInfo
 	telegram?: { id?: string; isActive?: boolean }
-	category?: ClientCategoryFindOneData
 	calc?: ClientCalc
 }
 

@@ -104,6 +104,7 @@ export class ClientService {
 				id: c.id,
 				fullname: c.fullname,
 				createdAt: c.createdAt,
+				category: c.category,
 				address: c.address,
 				phone: c.phone,
 				calc: calc,

@@ -42,7 +42,7 @@ export class ClientRepository implements OnModuleInit {
 				actions: true,
 				createdAt: true,
 				telegram: true,
-				category: { select: { id: true, name: true, createdAt: true, percent: true } },
+				category: true,
 				payments: {
 					where: { type: ServiceTypeEnum.client, deletedAt: null },
 					select: { card: true, cash: true, other: true, transfer: true, total: true },
@@ -87,6 +87,7 @@ export class ClientRepository implements OnModuleInit {
 				id: true,
 				fullname: true,
 				address: true,
+				category: true,
 				phone: true,
 				actions: true,
 				createdAt: true,
@@ -204,7 +205,7 @@ export class ClientRepository implements OnModuleInit {
 				updatedAt: true,
 				createdAt: true,
 				deletedAt: true,
-				category: { select: { id: true, name: true, createdAt: true, percent: true } },
+				category: true,
 				payments: {
 					where: { type: ServiceTypeEnum.client, deletedAt: null },
 					select: { card: true, total: true, cash: true, other: true, transfer: true, createdAt: true, description: true },
@@ -305,7 +306,7 @@ export class ClientRepository implements OnModuleInit {
 				password: password,
 				phone: body.phone,
 				type: UserTypeEnum.client,
-				categoryId: body.categoryId,
+				category: body.category,
 				address: body.address,
 			},
 			select: {
@@ -314,7 +315,7 @@ export class ClientRepository implements OnModuleInit {
 				phone: true,
 				address: true,
 				createdAt: true,
-				category: { select: { id: true, name: true, createdAt: true, percent: true } },
+				category: true,
 			},
 		})
 		return client
@@ -328,7 +329,7 @@ export class ClientRepository implements OnModuleInit {
 				phone: body.phone,
 				balance: body.balance,
 				deletedAt: body.deletedAt,
-				categoryId: body.categoryId,
+				category: body.category,
 				address: body.address,
 			},
 		})

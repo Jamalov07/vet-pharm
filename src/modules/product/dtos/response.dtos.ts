@@ -1,8 +1,9 @@
 import { ApiProperty, IntersectionType, PickType } from '@nestjs/swagger'
-import { ProductFindManyData, ProductFindManyResponse, ProductFindOneData, ProductFindOneResponse, ProductModifyResponse } from '../interfaces'
+import { ProductFindManyData, ProductFindManyResponse, ProductFindOneData, ProductFindOneResponse, ProductModifyResponse, ProductPrices } from '../interfaces'
 import { GlobalModifyResponseDto, GlobalResponseDto, PaginationResponseDto } from '@common'
 import { ProductRequiredDto } from './fields.dtos'
 import { Decimal } from '@prisma/client/runtime/library'
+import { ProductPricesOptionalDto } from './request.dtos'
 
 export class ProductFindOneDataDto extends PickType(ProductRequiredDto, ['id', 'name', 'createdAt', 'unit']) implements ProductFindOneData {
 	@ApiProperty({ type: Date })
@@ -10,6 +11,9 @@ export class ProductFindOneDataDto extends PickType(ProductRequiredDto, ['id', '
 
 	@ApiProperty({ type: Number })
 	totalCost?: Decimal
+
+	@ApiProperty({ type: ProductPricesOptionalDto })
+	prices?: ProductPrices
 }
 
 export class ProductFindManyDataDto extends PaginationResponseDto implements ProductFindManyData {

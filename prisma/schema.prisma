@@ -81,6 +81,12 @@ enum ProductUnitEnum {
 	METER     @map("meter")
 }
 
+enum ClientCategoryEnum {
+  client  @map("client")
+  doctor  @map("doctor")
+  farmer  @map("farmer")
+}
+
 model ActionModel {
   id            String            @map("id")             @db.Uuid       @default(dbgenerated("GEN_RANDOM_UUID()"))
   url           String            @map("url")            @db.VarChar()
@@ -114,21 +120,6 @@ model PermissionModel {
   @@map("permission")
 }
 
-model ClientCategoryModel {
-  id         String     @map("id")          @db.Uuid         @default(dbgenerated("GEN_RANDOM_UUID()"))
-  name       String     @map("name")        @db.VarChar()  
-  percent    Int        @map("percent")     @db.Integer      @default(100)
-  minPercent Int        @map("min_percent") @db.Integer      @default(100)
-  createdAt  DateTime   @map("created_at")  @db.Timestamptz  @default(dbgenerated("NOW()"))
-  updatedAt  DateTime   @map("updated_at")  @db.Timestamptz  @updatedAt
-  deletedAt  DateTime?  @map("deleted_at")  @db.Timestamptz
-
-  users  UserModel[]
-
-  @@id([ id ])
-  @@map("client_category")
-}
-
 model ExpenseModel {
   id           String     @map("id")          @db.Uuid         @default(dbgenerated("GEN_RANDOM_UUID()"))
   price        Int        @map("price")       @db.Integer      @default(100)
@@ -152,8 +143,8 @@ model UserModel {
   password    String   @map("password")     @db.VarChar()  
   token       String?  @map("token")        @db.VarChar()  
   balance     Decimal  @map("balance")      @db.Decimal(10, 3)  @default(0)
-  categoryId  String?  @map("category_id")  @db.Uuid
   type        UserTypeEnum
+  category    ClientCategoryEnum                                @default(client)
 
   pages     PageEnum[] @default([])
  
@@ -162,8 +153,6 @@ model UserModel {
   deletedAt  DateTime?  @map("deleted_at")  @db.Timestamptz
 
   telegram  BotUserModel?
-
-  category  ClientCategoryModel?  @relation(fields: [ categoryId ], references: [ id ], onDelete: Cascade, onUpdate: NoAction)
 
   actions          ActionModel[]
   expenses         ExpenseModel[]
@@ -393,6 +382,7 @@ model ProductModel {
   updatedAt  DateTime   @map("updated_at")  @db.Timestamptz  @updatedAt
   deletedAt  DateTime?  @map("deleted_at")  @db.Timestamptz
 
+  prices     ProductPricesModel?
   productMVs ProductMVModel[]
 
   @@id([ id ])
@@ -400,6 +390,17 @@ model ProductModel {
   @@index([ name ])
   @@index([ createdAt ])
   @@map("product")
+}
+
+model ProductPricesModel {
+  productId  String    @map("product_id")   @db.Uuid            @unique
+  client     Decimal   @map("client")       @db.Decimal(10, 3)  @default(0)
+  doctor     Decimal   @map("doctor")       @db.Decimal(10, 3)  @default(0)
+  farmer     Decimal   @map("farmer")       @db.Decimal(10, 3)  @default(0)
+
+  product  ProductModel  @relation(fields: [ productId ], references: [ id ], onDelete: Cascade, onUpdate: NoAction)
+
+  @@map("product_prices")
 }
 
 model DayCloseLog {

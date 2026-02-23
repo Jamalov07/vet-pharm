@@ -2,7 +2,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import { DefaultOptionalFieldsDto, DefaultRequiredFieldsDto } from '../../../common'
 import { ClientOptional, ClientRequired } from '../interfaces'
 import { IsEnum, IsJWT, IsNotEmpty, IsOptional, IsPhoneNumber, IsString, IsUUID } from 'class-validator'
-import { $Enums, UserTypeEnum } from '@prisma/client'
+import { $Enums, ClientCategoryEnum, UserTypeEnum } from '@prisma/client'
 import { Decimal } from '@prisma/client/runtime/library'
 
 export class ClientRequiredDto extends DefaultRequiredFieldsDto implements ClientRequired {
@@ -34,10 +34,10 @@ export class ClientRequiredDto extends DefaultRequiredFieldsDto implements Clien
 	@ApiProperty({ type: Decimal })
 	balance: Decimal
 
-	@ApiProperty({ type: String })
+	@ApiProperty({ enum: ClientCategoryEnum })
 	@IsNotEmpty()
-	@IsUUID('4')
-	categoryId: string
+	@IsEnum(ClientCategoryEnum)
+	category: ClientCategoryEnum
 
 	@ApiProperty({ type: String, isArray: true })
 	pages: $Enums.PageEnum[]
@@ -82,8 +82,8 @@ export class ClientOptionalDto extends DefaultOptionalFieldsDto implements Clien
 	@ApiPropertyOptional({ type: Decimal })
 	balance?: Decimal
 
-	@ApiPropertyOptional({ type: String })
+	@ApiPropertyOptional({ enum: ClientCategoryEnum })
 	@IsOptional()
-	@IsUUID('4')
-	categoryId?: string
+	@IsEnum(ClientCategoryEnum)
+	category?: ClientCategoryEnum
 }
